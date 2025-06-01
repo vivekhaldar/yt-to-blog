@@ -1,0 +1,22 @@
+[project]
+name = "yt-to-blog"
+version = "0.1.0"
+description = "Write up YouTube videos as blog posts."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "google-genai",
+    "jinja2",
+    "python-dotenv",
+]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.9.6",
+]
+
+[tool.uv]
+package = true
+
+[project.scripts]
+yt-to-blog = "yt_to_blog:main"
