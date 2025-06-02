@@ -4,6 +4,7 @@ from google.genai import types
 import argparse
 from dotenv import load_dotenv
 import logging
+from prompt import DEFAULT_PROMPT
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -45,19 +46,25 @@ def analyze_youtube_video(youtube_url, gemini_key, prompt):
 def main():
     parser = argparse.ArgumentParser(description="Analyze a YouTube video and generate a blog post.")
     parser.add_argument("--youtube-url", type=str, required=True, help="YouTube video URL")
-    parser.add_argument("--prompt-file", type=str, required=True, help="Path to file containing the main prompt for the AI model")
-    parser.add_argument("--video-specific-prompt", type=str, required=True, help="Path to file containing video-specific content (e.g., reference links)")
-    
+    parser.add_argument("--prompt-file", type=str, required=False, help="Path to file containing the main prompt for the AI model (optional, uses default if not specified)")
+    parser.add_argument("--video-specific-prompt", type=str, required=False, help="Path to file containing video-specific content (e.g., reference links)")
+
     args = parser.parse_args()
     gemini_key = load_gemini_key()
 
     # Read the main prompt
-    with open(args.prompt_file, "r") as f:
-        main_prompt = f.read()
+    if args.prompt_file:
+        with open(args.prompt_file, "r") as f:
+            main_prompt = f.read()
+    else:
+        main_prompt = DEFAULT_PROMPT
     
     # Read the video-specific prompt
-    with open(args.video_specific_prompt, "r") as f:
-        video_specific_content = f.read()
+    if args.video_specific_prompt:
+        with open(args.video_specific_prompt, "r") as f:
+            video_specific_content = f.read()
+    else:
+        video_specific_content = ""
     
     # Combine the prompts by replacing the placeholder
     prompt = main_prompt.replace("{VIDEO_SPECIFIC_CONTENT}", video_specific_content)
