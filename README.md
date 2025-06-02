@@ -44,26 +44,72 @@ export LLM_GEMINI_KEY=your_gemini_api_key_here
 
 ## Usage
 
-The tool requires two main inputs:
-1. A YouTube video URL
-2. A prompt file containing instructions for the AI model
+### Command Line Arguments
+
+The tool accepts the following arguments:
+
+**Required:**
+- `--youtube-url`: The YouTube video URL to analyze
+
+**Optional:**
+- `--prompt-file`: Path to a custom general prompt file (if not specified, uses built-in default prompt)
+- `--video-specific-prompt`: Path to a video-specific prompt file containing reference links and additional context
+
+### Prompt System
+
+The tool uses a two-part prompt system:
+
+1. **General Prompt**: Contains the core instructions for video analysis and blog post generation
+   - If `--prompt-file` is provided, uses that file
+   - If not provided, uses the built-in default prompt from `src/prompt.py`
+   - Defines the AI's role, writing style guidelines, and general process
+
+2. **Video-Specific Prompt**: Contains context specific to individual videos
+   - Optional file specified with `--video-specific-prompt`
+   - Typically contains reference links, citations, and video-specific context
+   - Gets inserted into the general prompt template at the `{VIDEO_SPECIFIC_CONTENT}` placeholder
+   - Examples: `video-specific-prompt-jevons.md`, `video-specific-prompt-factory-work.md`
 
 ### Basic Usage
 
+**Minimal usage (only required arguments):**
+```bash
+yt-to-blog --youtube-url "https://www.youtube.com/watch?v=VIDEO_ID"
+```
+
+**With custom general prompt:**
 ```bash
 yt-to-blog --youtube-url "https://www.youtube.com/watch?v=VIDEO_ID" --prompt-file prompt.md
+```
+
+**With video-specific context:**
+```bash
+yt-to-blog --youtube-url "https://www.youtube.com/watch?v=VIDEO_ID" --video-specific-prompt video-specific-prompt-jevons.md
+```
+
+**With both custom prompts:**
+```bash
+yt-to-blog --youtube-url "https://www.youtube.com/watch?v=VIDEO_ID" --prompt-file prompt.md --video-specific-prompt video-specific-prompt-jevons.md
 ```
 
 ### Using with uv
 
 ```bash
-uv run yt-to-blog --youtube-url "https://www.youtube.com/watch?v=VIDEO_ID" --prompt-file prompt.md
+uv run yt-to-blog --youtube-url "https://www.youtube.com/watch?v=VIDEO_ID" --video-specific-prompt video-specific-prompt-jevons.md
 ```
 
-### Example
+### Using with uvx (Direct from Git)
+
+You can run the tool directly from the GitHub repository without cloning:
 
 ```bash
-yt-to-blog --youtube-url "https://www.youtube.com/watch?v=GT_sXIUJPUo" --prompt-file prompt.md > blog_post.md
+uvx --from git+https://github.com/vivekhaldar/yt-to-blog yt-to-blog --youtube-url "https://www.youtube.com/watch?v=VIDEO_ID"
+```
+
+### Complete Example
+
+```bash
+yt-to-blog --youtube-url "https://www.youtube.com/watch?v=GT_sXIUJPUo" --video-specific-prompt video-specific-prompt-jevons.md > blog_post.md
 ```
 
 ## Prompt File
