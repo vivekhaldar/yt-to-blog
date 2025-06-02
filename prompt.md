@@ -36,12 +36,4 @@ A complete blog post draft, formatted in plain text or Markdown, ready for publi
 * A conclusion.
 * Clear citations for any quotes or significant paraphrases from the provided links.
 
-**Reference Links (to be used for quotes and citations):**
-
-* `https://fakepixels.substack.com/p/jevons-paradox-a-personal-perspective`
-* `https://substack.com/@contraptions/note/c-108501320`
-* `https://www.anthropic.com/engineering/claude-code-best-practices`
-* `https://x.com/vivekhaldar/status/1914046459877708033`
-* `https://help.openai.com/en/articles/10291617-scheduled-tasks-in-chatgpt`
-* `https://arxiv.org/pdf/2504.13171`
-* `https://www.youtube.com/watch?v=GT_sXIUJPUo`
+{VIDEO_SPECIFIC_CONTENT}
