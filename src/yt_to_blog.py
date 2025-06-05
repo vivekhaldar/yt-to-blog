@@ -28,7 +28,7 @@ def analyze_youtube_video(youtube_url, gemini_key, prompt):
 
     # Analyze the video
     response = client.models.generate_content(
-        model="gemini-2.5-pro-preview-05-06",
+        model="models/gemini-2.5-flash-preview-05-20",
         contents=types.Content(
             parts=[
                 types.Part(text=prompt),
