@@ -28,13 +28,13 @@ def analyze_youtube_video(youtube_url, gemini_key, prompt):
 
     # Analyze the video
     response = client.models.generate_content(
-        model="models/gemini-2.5-flash-preview-05-20",
+        model="models/gemini-2.5-pro-preview-06-05",
         contents=types.Content(
             parts=[
-                types.Part(text=prompt),
                 types.Part(
                     file_data=types.FileData(file_uri=youtube_url)
-                )
+                ),
+                types.Part(text=prompt),
             ]
         )
     )
