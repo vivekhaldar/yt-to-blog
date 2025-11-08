@@ -54,6 +54,7 @@ The tool accepts the following arguments:
 **Optional:**
 - `--prompt-file`: Path to a custom general prompt file (if not specified, uses built-in default prompt)
 - `--video-specific-prompt`: Path to a video-specific prompt file containing reference links and additional context
+- `--output`: Output file name for the generated blog post (default: `video-summary.md`)
 
 ### Prompt System
 
@@ -72,9 +73,14 @@ The tool uses a two-part prompt system:
 
 ### Basic Usage
 
-**Minimal usage (only required arguments):**
+**Minimal usage (only required arguments, writes to `video-summary.md`):**
 ```bash
 yt-to-blog --youtube-url "https://www.youtube.com/watch?v=VIDEO_ID"
+```
+
+**With custom output file:**
+```bash
+yt-to-blog --youtube-url "https://www.youtube.com/watch?v=VIDEO_ID" --output my-blog-post.md
 ```
 
 **With custom general prompt:**
@@ -87,15 +93,15 @@ yt-to-blog --youtube-url "https://www.youtube.com/watch?v=VIDEO_ID" --prompt-fil
 yt-to-blog --youtube-url "https://www.youtube.com/watch?v=VIDEO_ID" --video-specific-prompt video-specific-prompt-jevons.md
 ```
 
-**With both custom prompts:**
+**With both custom prompts and output file:**
 ```bash
-yt-to-blog --youtube-url "https://www.youtube.com/watch?v=VIDEO_ID" --prompt-file prompt.md --video-specific-prompt video-specific-prompt-jevons.md
+yt-to-blog --youtube-url "https://www.youtube.com/watch?v=VIDEO_ID" --prompt-file prompt.md --video-specific-prompt video-specific-prompt-jevons.md --output blog-post.md
 ```
 
 ### Using with uv
 
 ```bash
-uv run yt-to-blog --youtube-url "https://www.youtube.com/watch?v=VIDEO_ID" --video-specific-prompt video-specific-prompt-jevons.md
+uv run yt-to-blog --youtube-url "https://www.youtube.com/watch?v=VIDEO_ID" --video-specific-prompt video-specific-prompt-jevons.md --output blog-post.md
 ```
 
 ### Using with uvx (Direct from Git)
@@ -109,7 +115,7 @@ uvx --from git+https://github.com/vivekhaldar/yt-to-blog yt-to-blog --youtube-ur
 ### Complete Example
 
 ```bash
-yt-to-blog --youtube-url "https://www.youtube.com/watch?v=GT_sXIUJPUo" --video-specific-prompt video-specific-prompt-jevons.md > blog_post.md
+yt-to-blog --youtube-url "https://www.youtube.com/watch?v=GT_sXIUJPUo" --video-specific-prompt video-specific-prompt-jevons.md --output jevons-paradox-post.md
 ```
 
 ## Prompt File

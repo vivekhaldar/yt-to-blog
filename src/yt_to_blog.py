@@ -48,6 +48,7 @@ def main():
     parser.add_argument("--youtube-url", type=str, required=True, help="YouTube video URL")
     parser.add_argument("--prompt-file", type=str, required=False, help="Path to file containing the main prompt for the AI model (optional, uses default if not specified)")
     parser.add_argument("--video-specific-prompt", type=str, required=False, help="Path to file containing video-specific content (e.g., reference links)")
+    parser.add_argument("--output", type=str, default="video-summary.md", help="Output file name for the generated blog post (default: video-summary.md)")
 
     args = parser.parse_args()
     gemini_key = load_gemini_key()
@@ -71,7 +72,11 @@ def main():
 
     blog_post = analyze_youtube_video(args.youtube_url, gemini_key, prompt)
 
-    print(blog_post)
+    # Write the blog post to the output file
+    with open(args.output, "w", encoding="utf-8") as f:
+        f.write(blog_post)
+
+    log.info(f"Blog post written to {args.output}")
 
 if __name__ == "__main__":
     main()
